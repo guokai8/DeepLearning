@@ -1,3 +1,4 @@
+''' calculate the gradient descent '''
 ''' Loss function for MSE '''
 ''' L = (y-y_hat)^2 '''
 def update_weights_MSE(a, b, X, Y, lr):
