@@ -57,6 +57,7 @@ def update_weight_bce(m1,m2,X1,X2,Y,lr):
     m1_d = 0
     m2_d = 0
     b_d = 0
+    N = len(X1)
     for i in range(N):
         s = 1 / (1 / (1 + math.exp(-m1*X1[i] - m2*X2[i] - b)))
         m1_d += -X1[i] * (s - Y[i])
@@ -67,6 +68,25 @@ def update_weight_bce(m1,m2,X1,X2,Y,lr):
     b -= (b_d / float(N)) * lr
     return(m1, m2, b)
 
+''' Loss function for Hinge '''
+''' L = max(0, 1-y*y_hat) '''
+''' y_hat = m1*x1+m2*x2+b '''
+def update_weights_hinge(m1, m2, b, X1, X2, Y, lr):
+    m1_d = 0
+    m2_d = 0
+    b_d = 0
+    N = len(X1)
+    for i in range(N):
+        if(Y[i]*(m1*X1[i]+m2*X2[i]+b)) <=1:
+            m1_d += -X1[i] * Y[i]
+            m2_d += -X2[i] * Y[i]
+            b_d += -Y[i]
+    m1 -= (m1_d/float(N)) * lr
+    m2 -= (m2_d/float(N)) * lr
+    b -= (b_d/float(N)) *lr
+    return(m1,m2,b)
+    
+    
             
     
     
