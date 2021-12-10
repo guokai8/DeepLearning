@@ -49,6 +49,23 @@ def update_weights_huber(a,b,X,Y,delta,lr):
     a -= (a_d / float(N)) * lr
     b -= (b_d / float(N)) * lr
     return(a,b)
+''' Loss function for binary cross entropy '''
+''' L = -(y * log(y_hat) + (1 - y) * log(1 - y_hat)) '''
+''' y_hat = 1/(1+math.exp(-m1*X1[i]- m2*X2[i] - b)) '''
+''' log-loss function '''
+def update_weight_bce(m1,m2,X1,X2,Y,lr):
+    m1_d = 0
+    m2_d = 0
+    b_d = 0
+    for i in range(N):
+        s = 1 / (1 / (1 + math.exp(-m1*X1[i] - m2*X2[i] - b)))
+        m1_d += -X1[i] * (s - Y[i])
+        m2_d += -X2[i] * (s - Y[i])
+        b_d += -(s - Y[i])
+    m1 -= (m1_d / float(N)) * learning_rate
+    m2 -= (m2_d / float(N)) * learning_rate
+    b -= (b_d / float(N)) * learning_rate
+    return(m1, m2, b)
 
             
     
