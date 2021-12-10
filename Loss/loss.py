@@ -62,9 +62,9 @@ def update_weight_bce(m1,m2,X1,X2,Y,lr):
         m1_d += -X1[i] * (s - Y[i])
         m2_d += -X2[i] * (s - Y[i])
         b_d += -(s - Y[i])
-    m1 -= (m1_d / float(N)) * learning_rate
-    m2 -= (m2_d / float(N)) * learning_rate
-    b -= (b_d / float(N)) * learning_rate
+    m1 -= (m1_d / float(N)) * lr
+    m2 -= (m2_d / float(N)) * lr
+    b -= (b_d / float(N)) * lr
     return(m1, m2, b)
 
             
