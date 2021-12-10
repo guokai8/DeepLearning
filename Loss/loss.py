@@ -122,7 +122,8 @@ model_alpha1.compile(loss='kullback_leibler_divergence', optimizer=opt_alpha1, m
 # history_alpha1用于为绘图的验证和准确性评分
 history_alpha1 = model_alpha1.fit(dataX, dummy_Y, validation_data=(dataX, dummy_Y), epochs=200, verbose=0)
     
-    
+''' multiple classfication '''
+''' L = -1/N * y *log(p) '''
     
     
     
