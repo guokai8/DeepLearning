@@ -51,6 +51,7 @@ def update_weights_huber(a,b,X,Y,delta,lr):
     return(a,b)
 ''' Loss function for binary cross entropy '''
 ''' L = -(y * log(y_hat) + (1 - y) * log(1 - y_hat)) '''
+''' sigmoid function to calculate the y_hat '''
 ''' y_hat = 1/(1+math.exp(-m1*X1[i]- m2*X2[i] - b)) '''
 ''' log-loss function '''
 def update_weight_bce(m1,m2,X1,X2,Y,lr):
@@ -86,9 +87,40 @@ def update_weights_hinge(m1, m2, b, X1, X2, Y, lr):
     b -= (b_d/float(N)) *lr
     return(m1,m2,b)
     
-    
+''' Loss function for categorical_crossentropy '''
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.optimizers import adam
+#alpha设置为0.001，如adam优化器中的lr参数所示
+# 创建模型
+model_alpha1 = Sequential()
+model_alpha1.add(Dense(50, input_dim=2, activation='relu'))
+model_alpha1.add(Dense(3, activation='softmax'))
+# 编译模型
+opt_alpha1 = adam(lr=0.001)
+model_alpha1.compile(loss='categorical_crossentropy', optimizer=opt_alpha1, metrics=['accuracy'])
+# 拟合模型
+# dummy_Y是one-hot形式编码的
+# history_alpha1用于为绘图的验证和准确性评分
+history_alpha1 = model_alpha1.fit(dataX, dummy_Y, validation_data=(dataX, dummy_Y), epochs=200, verbose=0)
             
-    
+''' Loss function for KL '''
+# 导入包
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.optimizers import adam
+# alpha设置为0.001，如adam优化器中的lr参数所示
+#  创建模型
+model_alpha1 = Sequential()
+model_alpha1.add(Dense(50, input_dim=2, activation='relu'))
+model_alpha1.add(Dense(3, activation='softmax'))
+# 编译模型
+opt_alpha1 = adam(lr=0.001)
+model_alpha1.compile(loss='kullback_leibler_divergence', optimizer=opt_alpha1, metrics=['accuracy'])
+# 拟合模型
+# dummy_Y是one-hot形式编码的
+# history_alpha1用于为绘图的验证和准确性评分
+history_alpha1 = model_alpha1.fit(dataX, dummy_Y, validation_data=(dataX, dummy_Y), epochs=200, verbose=0)
     
     
     
